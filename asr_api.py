@@ -1,6 +1,8 @@
 import speech_recognition as sr
 import streamlit as st
+from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
+webrtc_ctx = webrtc_streamer(key='speech-to-text',mode=WebRtcMode.SENDONLY, media_stream_constraints={"video": False, "audio": True})
 
 
 

@@ -1,6 +1,15 @@
 import speech_recognition as sr
 import streamlit as st
 
+
+
+
+picture = st.camera_input("Take a picture")
+
+if picture:
+     st.image(picture)
+        
+        
 if st.button("음성인식"):
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -17,9 +26,3 @@ if st.button("음성인식"):
         transcript = "error"
 
     st.write('질문: ', transcript)
-
-
-picture = st.camera_input("Take a picture")
-
-if picture:
-     st.image(picture)

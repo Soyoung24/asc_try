@@ -1,2 +1,1 @@
-libportaudio-dev
-
+python-pyaudio

@@ -1,3 +1,4 @@
+build-essential
 libportaudio-dev
 python-dev
 libportaudio0 

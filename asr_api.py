@@ -3,7 +3,7 @@ import streamlit as st
 
 if st.button("음성인식"):
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone(device_index=0) as source:
         r.adjust_for_ambient_noise(source)
         print("say something")
         audio = r.listen(source)

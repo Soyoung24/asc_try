@@ -15,7 +15,8 @@ if st.button("음성인식"):
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
         print("say something")
-        audio = r.listen(source)
+        audio = r.record(source)
+#         audio = r.listen(source)
 
     try:
         transcript = r.recognize_google(audio, language='ko-KR')

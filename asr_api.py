@@ -1,49 +1,38 @@
-import speech_recognition as sr
 import streamlit as st
-from streamlit_webrtc import WebRtcMode, webrtc_streamer
+from bokeh.models.widgets import Button
+from bokeh.models import CustomJS
+from streamlit_bokeh_events import streamlit_bokeh_events
 
-webrtc_ctx = webrtc_streamer(key='speech-to-text',mode=WebRtcMode.SENDONLY, media_stream_constraints={"video": False, "audio": True})
+stt_button = Button(label="Speak", width=100)
 
+stt_button.js_on_event("button_click", CustomJS(code="""
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "ko-KR";
 
+    recognition.onresult = function (e) {
+        var value = "";
+        for (var i = e.resultIndex; i < e.results.length; ++i) {
+            if (e.results[i].isFinal) {
+                value += e.results[i][0].transcript;
+            }
+        }
+        if ( value != "") {
+            document.dispatchEvent(new CustomEvent("GET_TEXT", {detail: value}));
+        }
+    }
+    recognition.start();
+    """))
 
-# picture = st.camera_input("Take a picture")
+result = streamlit_bokeh_events(
+    stt_button,
+    events="GET_TEXT",
+    key="listen",
+    refresh_on_update=False,
+    override_height=75,
+    debounce_time=0)
 
-# if picture:
-#      st.image(picture)
-    
-# st.write('마이크')
-# st.write(sr.Microphone.list_microphone_names())
-        
-# if st.button("음성인식"):
-#     r = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         r.adjust_for_ambient_noise(source)
-#         print("say something")
-#         audio = r.record(source)
-# #         audio = r.listen(source)
-
-#     try:
-#         transcript = r.recognize_google(audio, language='ko-KR')
-#         # print(transcript)
-#     except sr.UnknownValueError:
-#         transcript = '질문을 이해하지 못했습니다.'
-#     except sr.RequestError as e:
-#         transcript = "error"
-
-#     st.write('질문: ', transcript)
-
-
-import sounddevice as sd
-from scipy.io.wavfile import write
-
-if st.button("음성인식"):
-
-    fs = 44100  # Sample rate
-    seconds = 3  # Duration of recording
-
-    myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=1)
-    sd.wait()  # Wait until recording is finished
-    write('output.wav', fs, myrecording)  # Save as WAV file
-
-    audio_file = open("output.wav", "rb").read()
-    st.audio(audio_file, format='audio/wav')
+if result:
+    if "GET_TEXT" in result:
+        st.write(result.get("GET_TEXT"))

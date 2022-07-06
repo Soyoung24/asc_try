@@ -1,7 +1,4 @@
 build-essential
-libportaudio-dev
-python-dev
-libportaudio0 
-libportaudio2 
-libportaudiocpp0 
+libasound-dev
 portaudio19-dev
+python3-pyaudio

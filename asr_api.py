@@ -8,8 +8,9 @@ picture = st.camera_input("Take a picture")
 
 if picture:
      st.image(picture)
-        
-print(sr.Microphone.list_microphone_names())
+    
+st.write('마이크')
+st.write(sr.Microphone.list_microphone_names())
         
 if st.button("음성인식"):
     r = sr.Recognizer()

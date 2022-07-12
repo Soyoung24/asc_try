@@ -50,11 +50,13 @@ if result:
         st.write(question)
 
     
+question=st.text_input('question')
 
+st.write('질문: ', question)
 
-st.markdown("정답인가요?")
-stt_button1 = Button(label="네", width=100)
-stt_button2 = Button(label="아니요", width=100)
+# st.markdown("정답인가요?")
+# stt_button1 = Button(label="네", width=100)
+# stt_button2 = Button(label="아니요", width=100)
 
 
      

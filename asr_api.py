@@ -3,6 +3,8 @@ from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 
+st.header("스마트관광도시 AI 앱테크 어플리케이션")
+st.markdown("VQA 데이터셋 구축을 함께해요")
 
 picture = st.camera_input("Take a picture")
 
@@ -44,3 +46,14 @@ if result:
     if "GET_TEXT" in result:
         question=result.get("GET_TEXT")
         st.write(question)
+
+    
+
+
+st.markdown("정답인가요?")
+stt_button = Button(label="네", width=100)
+stt_button = Button(label="아니요", width=100)
+
+
+     
+     

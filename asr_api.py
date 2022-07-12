@@ -3,6 +3,13 @@ from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 
+
+picture = st.camera_input("Take a picture")
+
+if picture:
+     st.image(picture)
+        
+        
 stt_button = Button(label="Speak", width=100)
 
 stt_button.js_on_event("button_click", CustomJS(code="""

@@ -4,6 +4,8 @@ from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 
 st.header("스마트관광도시 AI 앱테크 어플리케이션")
+st.header("어플리케이션")
+
 st.markdown("VQA 데이터셋 구축을 함께해요")
 
 picture = st.camera_input("Take a picture")
